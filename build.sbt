@@ -17,7 +17,7 @@
 import Dependencies._
 
 lazy val root = (project in file("."))
-  .enablePlugins(PlayScala)
+  .enablePlugins(PlayScala, PlayJava)
   .settings(
     name := """dr-elephant""",
     organization := "com.linkedin.drelephant",

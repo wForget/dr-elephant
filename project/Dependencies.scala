@@ -14,7 +14,7 @@
 // the License.
 //
 
-import play.sbt._
+import play.sbt.PlayImport._
 import sbt._
 
 object Dependencies {
@@ -103,10 +103,8 @@ object Dependencies {
     )
   ) :+ sparkExclusion
 
-//  var dependencies = Seq(javaJdbc, javaEbean, cache)
-//  dependencies ++= requiredDep
-
-  var dependencies = requiredDep
+  var dependencies = Seq(javaJdbc, jcache)
+  dependencies ++= requiredDep
 
   val exclusionRules = Seq(
     ExclusionRule(organization = "com.sun.jersey", name = "jersey-core"),

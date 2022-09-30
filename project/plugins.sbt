@@ -16,3 +16,4 @@
 
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % Option(System.getProperty("play.version")).getOrElse("2.8.16"))
+addSbtPlugin("com.typesafe.sbt" % "sbt-play-ebean" % "6.2.0-RC3")
