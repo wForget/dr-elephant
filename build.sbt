@@ -14,30 +14,21 @@
 // the License.
 //
 
-import play.Project._
 import Dependencies._
 
-name := "dr-elephant"
+lazy val root = (project in file("."))
+  .enablePlugins(PlayScala)
+  .settings(
+    name := """dr-elephant""",
+    organization := "com.linkedin.drelephant",
+    version := "2.1.7",
+    scalaVersion := "2.12.10",
+    logLevel := Level.Warn,
+    libraryDependencies ++= dependencies map { _.excludeAll(exclusionRules: _*) },
+    scalacOptions ++= Seq(
+      "-feature",
+      "-deprecation",
+      "-Xfatal-warnings"
+    )
+  )
 
-version := "2.1.7"
-
-organization := "com.linkedin.drelephant"
-
-// Enable CPD SBT plugin
-lazy val root = (project in file(".")).enablePlugins(CopyPasteDetector)
-
-javacOptions in Compile ++= Seq("-source", "1.8", "-target", "1.8")
-
-libraryDependencies ++= dependencies map { _.excludeAll(exclusionRules: _*) }
-
-// Create a new custom configuration called compileonly
-ivyConfigurations += config("compileonly").hide
-
-// Append all dependencies with 'compileonly' configuration to unmanagedClasspath in Compile.
-unmanagedClasspath in Compile ++= update.value.select(configurationFilter("compileonly"))
-
-playJavaSettings
-
-scalaVersion := "2.10.4"
-
-envVars in Test := Map("PSO_DIR_PATH" -> (baseDirectory.value / "scripts/pso").getAbsolutePath)

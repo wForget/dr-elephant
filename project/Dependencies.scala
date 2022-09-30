@@ -14,7 +14,7 @@
 // the License.
 //
 
-import play.Project._
+import play.sbt._
 import sbt._
 
 object Dependencies {
@@ -24,8 +24,8 @@ object Dependencies {
   lazy val commonsIoVersion = "2.4"
   lazy val gsonVersion = "2.2.4"
   lazy val guavaVersion = "18.0"          // Hadoop by default uses Guava 11.0, might raise NoSuchMethodException
-  lazy val jacksonMapperAslVersion = "1.7.3"
-  lazy val jacksonVersion = "2.5.3"
+//  lazy val jacksonMapperAslVersion = "1.7.3"
+  lazy val jacksonVersion = "2.13.4"
   lazy val jerseyVersion = "2.24"
   lazy val jsoupVersion = "1.7.3"
   lazy val mysqlConnectorVersion = "5.1.36"
@@ -35,25 +35,25 @@ object Dependencies {
   lazy val HADOOP_VERSION = "hadoopversion"
   lazy val SPARK_VERSION = "sparkversion"
 
-  var hadoopVersion = "2.3.0"
+  var hadoopVersion = "3.3.4"
   if (System.getProperties.getProperty(HADOOP_VERSION) != null) {
     hadoopVersion = System.getProperties.getProperty(HADOOP_VERSION)
   }
 
-  var sparkVersion = "1.4.0"
+  var sparkVersion = "3.1.1"
   if (System.getProperties.getProperty(SPARK_VERSION) != null) {
     sparkVersion = System.getProperties.getProperty(SPARK_VERSION)
   }
 
   val sparkExclusion = if (sparkVersion >= "1.5.0") {
-    "org.apache.spark" % "spark-core_2.10" % sparkVersion excludeAll(
+    "org.apache.spark" % "spark-core_2.12" % sparkVersion excludeAll(
       ExclusionRule(organization = "com.typesafe.akka"),
       ExclusionRule(organization = "org.apache.avro"),
       ExclusionRule(organization = "org.apache.hadoop"),
       ExclusionRule(organization = "net.razorvine")
       )
   } else {
-    "org.apache.spark" % "spark-core_2.10" % sparkVersion excludeAll(
+    "org.apache.spark" % "spark-core_2.12" % sparkVersion excludeAll(
       ExclusionRule(organization = "org.apache.avro"),
       ExclusionRule(organization = "org.apache.hadoop"),
       ExclusionRule(organization = "net.razorvine")
@@ -64,7 +64,7 @@ object Dependencies {
   var requiredDep = Seq(
     "com.google.code.gson" % "gson" % gsonVersion,
     "com.google.guava" % "guava" % guavaVersion,
-    "com.jsuereth" %% "scala-arm" % "1.4",
+    "com.jsuereth" %% "scala-arm" % "2.0",
     "commons-codec" % "commons-codec" % commonsCodecVersion,
     "commons-io" % "commons-io" % commonsIoVersion,
     "javax.ws.rs" % "javax.ws.rs-api" % "2.0.1",
@@ -103,8 +103,10 @@ object Dependencies {
     )
   ) :+ sparkExclusion
 
-  var dependencies = Seq(javaJdbc, javaEbean, cache)
-  dependencies ++= requiredDep
+//  var dependencies = Seq(javaJdbc, javaEbean, cache)
+//  dependencies ++= requiredDep
+
+  var dependencies = requiredDep
 
   val exclusionRules = Seq(
     ExclusionRule(organization = "com.sun.jersey", name = "jersey-core"),
